@@ -9,13 +9,13 @@ export default function Header({ name }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
   const pathname = usePathname();
 
-  // useEffect(() => {
-  //   const token = document.cookie
-  //     .split("; ")
-  //     .find((row) => row.startsWith("token="))
-  //     ?.split("=")[1];
-  //   setIsLoggedIn(!!token); // Set true if token exists, otherwise false
-  // }, []);
+  useEffect(() => {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1];
+    setIsLoggedIn(!!token); // Set true if token exists, otherwise false
+  }, []);
 
   return (
     <div className="bg-gray-300 w-full flex items-center justify-between py-6 px-12">
