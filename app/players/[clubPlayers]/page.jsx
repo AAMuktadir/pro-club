@@ -39,10 +39,9 @@ export default function Page({ params }) {
   return (
     <div>
       <Header name={(playersData && playersData[0]?.clubName) || "Players"} />
-
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 py-16 px-4 sm:px-20">
-        {playersData &&
-          playersData.map((player, id) => (
+      {playersData && playersData.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 py-16 px-4 sm:px-20">
+          {playersData.map((player, id) => (
             <div className="" key={id}>
               <PlayerCard
                 name={player.name}
@@ -54,7 +53,12 @@ export default function Page({ params }) {
               />
             </div>
           ))}
-      </div>
+        </div>
+      ) : (
+        <div className="text-2xl ppx-4 sm:px-20 pt-8 sm:pt-20">
+          No players are currently in this club.
+        </div>
+      )}
     </div>
   );
 }
