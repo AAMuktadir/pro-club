@@ -5,7 +5,7 @@ export function middleware(request) {
   const path = request.nextUrl.pathname;
 
   // Only protect the /manage-club route
-  if (path === "/manage-club") {
+  if (path === "/manage-club" || path === "/club-profile") {
     const token = cookies().get("token")?.value || "";
 
     if (!token) {
@@ -18,5 +18,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/manage-club"], // Only apply middleware to /manage-club
+  matcher: ["/manage-club", "/club-profile"],
 };

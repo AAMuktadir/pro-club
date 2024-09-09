@@ -5,6 +5,7 @@ export default function ConfirmDelete({
   onClose,
   onConfirm,
   playerId,
+  playerName,
 }) {
   if (!isOpen) return null;
 
@@ -16,7 +17,10 @@ export default function ConfirmDelete({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-        <p className="mb-4 text-lg">Are you sure to delete this post?</p>
+        <p className="pb-4 text-lg">
+          Are you sure to delete{" "}
+          <span className="font-medium text-red-500"> {playerName}</span>?
+        </p>
         <div className="flex justify-around">
           <button
             onClick={handleConfirm}

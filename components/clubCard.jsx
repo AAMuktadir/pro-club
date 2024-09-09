@@ -1,6 +1,14 @@
 import React from "react";
+import Link from "next/link";
 
-export default function ClubCard({ name, manager, rating, category }) {
+export default function ClubCard({
+  name,
+  id,
+  manager,
+  rating,
+  category,
+  clubid,
+}) {
   const stars = Array.from({ length: 5 }, (_, index) => (
     <svg
       key={index}
@@ -15,7 +23,11 @@ export default function ClubCard({ name, manager, rating, category }) {
   ));
 
   return (
-    <div className="w-60 h-40 bg-gray-100 border border-gray-300 rounded-lg shadow-sm p-4 flex flex-col justify-center">
+    <div
+      className={`w-60 h-40 bg-gray-100 border border-gray-300 rounded-lg shadow-sm p-4 flex flex-col justify-center ${
+        clubid == id && "bg-green-200"
+      }`}
+    >
       <h2 className="text-xl font-semibold text-gray-800 mb-1">{name}</h2>
       <p className="text-sm text-gray-600 mb-2">
         Manager: <span className="font-medium">{manager}</span>
@@ -27,6 +39,21 @@ export default function ClubCard({ name, manager, rating, category }) {
       <p className="text-sm text-gray-600">
         Category: <span className="font-medium">{category}</span>
       </p>
+      {clubid == id ? (
+        <Link
+          href={"/manage-club"}
+          className="pt-4 text-sm font-light text-blue-700"
+        >
+          Manage Your Club
+        </Link>
+      ) : (
+        <Link
+          href={`/players/${id}`}
+          className="pt-4 text-sm font-light text-blue-700"
+        >
+          View Players
+        </Link>
+      )}
     </div>
   );
 }

@@ -60,6 +60,15 @@ export default function Header({ name }) {
             >
               Manage Your Club
             </Link>
+
+            <Link
+              href="/club-profile"
+              className={`bg-gray-600 p-2 hover:text-white duration-300 ${
+                pathname === "/club-profile" ? "bg-green-200 text-black" : ""
+              }`}
+            >
+              Club Profile
+            </Link>
             <Logout />
           </>
         )}
