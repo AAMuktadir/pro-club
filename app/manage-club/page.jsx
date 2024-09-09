@@ -144,7 +144,7 @@ export default function Page() {
   return (
     <div className="pb-20">
       <Header
-        name={(playersData && playersData[0].clubName) || "Manage Your Club"}
+        name={(playersData && playersData[0]?.clubName) || "Manage Your Club"}
       />
       <div className="px-12">
         <div className="py-6">

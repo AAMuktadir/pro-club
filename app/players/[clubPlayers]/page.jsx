@@ -38,7 +38,7 @@ export default function Page({ params }) {
 
   return (
     <div>
-      <Header name={"Players"} />
+      <Header name={(playersData && playersData[0]?.clubName) || "Players"} />
 
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 py-16 px-4 sm:px-20">
         {playersData &&
