@@ -89,8 +89,6 @@ export default function Page() {
 
   const handleSubmit = async (playerData) => {
     const data = {
-      clubName: clubData.name,
-      clubID: clubData._id,
       ...playerData,
     };
 

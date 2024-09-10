@@ -23,7 +23,7 @@ export async function POST(request) {
 export async function GET(request) {
   try {
     await connect();
-    const clubID = await getDataFromToken(request);
+    const clubID = await getDataFromToken(request).id;
     const clubPlayers = await players.find({ clubID });
     return NextResponse.json(
       { message: "Players found", data: clubPlayers },

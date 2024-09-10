@@ -34,8 +34,6 @@ export default function Page({ params }) {
     }
   }, []);
 
-  console.log(params.clubPlayers);
-
   return (
     <div>
       <Header name={(playersData && playersData[0]?.clubName) || "Players"} />

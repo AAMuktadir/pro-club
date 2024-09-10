@@ -6,7 +6,7 @@ import clubs from "@/lib/models/clubs";
 export async function GET(request) {
   try {
     await connect();
-    const clubID = await getDataFromToken(request);
+    const clubID = await getDataFromToken(request).id;
     const club = await clubs.findById({ _id: clubID }).select("-password");
     return NextResponse.json(
       { message: "Club found", data: club },
@@ -26,7 +26,7 @@ export async function PATCH(request) {
   const { name, manager, category } = await request.json();
 
   try {
-    const clubID = await getDataFromToken(request);
+    const clubID = await getDataFromToken(request).id;
     const existingClub = await clubs.findById(clubID);
     if (!existingClub) {
       return NextResponse.json("Club not found", {

@@ -1,26 +1,17 @@
 import { NextResponse } from "next/server";
 import connect from "@/lib/mongodb";
 import players from "@/lib/models/players";
+import { getDataFromToken } from "@/helper/getDataFromToken";
 
 export async function POST(request) {
   await connect();
 
-  const {
-    name,
-    position,
-    email,
-    contact,
-    age,
-    height,
-    foot,
-    clubID,
-    clubName,
-  } = await request.json();
+  const { name, position, email, contact, age, height, foot } =
+    await request.json();
 
   try {
-    console.log("foot");
-    console.log(foot);
-
+    const clubID = await getDataFromToken(request).id;
+    const clubName = await getDataFromToken(request).name;
     const newPlayer = new players({
       name,
       position,
@@ -50,6 +41,7 @@ export async function POST(request) {
 export async function GET() {
   try {
     await connect();
+
     const player = await players.find();
     return NextResponse.json(
       { message: "Newsfeed found", data: player },

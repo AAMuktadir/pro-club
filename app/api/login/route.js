@@ -27,6 +27,7 @@ export async function POST(req) {
     const tokenData = {
       id: club._id,
       userName: club.userName,
+      name: club.name,
     };
 
     //create token
