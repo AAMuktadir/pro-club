@@ -35,21 +35,35 @@ export default function Page() {
   return (
     <div>
       <Header name={"Players"} />
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 py-16 px-4 sm:px-20">
-        {playersData &&
-          playersData.map((player, id) => (
-            <div className="" key={id}>
-              <PlayerCard
-                name={player.name}
-                position={player.position}
-                foot={player.foot}
-                club={player.clubName}
-                age={player.age}
-                height={player.height}
-              />
+
+      {playersData ? (
+        <div className="">
+          {playersData.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-8 py-16 px-4 sm:px-20">
+              {playersData.map((player, id) => (
+                <div className="" key={id}>
+                  <PlayerCard
+                    name={player.name}
+                    position={player.position}
+                    foot={player.foot}
+                    club={player.clubName}
+                    age={player.age}
+                    height={player.height}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-      </div>
+          ) : (
+            <div className="text-2xl px-4 sm:px-20 pt-8 sm:pt-20">
+              No players are currently in any club.
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="py-12 sm:py-20 w-full flex items-center justify-center">
+          <h4 className="text-xl sm:text-3xl text-center">Loading...</h4>
+        </div>
+      )}
     </div>
   );
 }

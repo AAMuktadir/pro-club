@@ -64,7 +64,7 @@ export default function Page() {
           Club Information
         </h2>
 
-        {clubData && (
+        {clubData ? (
           <div className="space-y-4 p-6 bg-gray-100 text-gray-800 rounded-lg shadow-sm">
             <div className="text-xl font-semibold text-gray-900">
               {clubData.name}
@@ -91,6 +91,10 @@ export default function Page() {
                 onUpdate={handleUpdate}
               />
             )}
+          </div>
+        ) : (
+          <div className="py-4 sm:py-8 w-full flex items-center justify-center">
+            <h4 className="text-lg sm:text-xl text-center">Loading...</h4>
           </div>
         )}
       </div>

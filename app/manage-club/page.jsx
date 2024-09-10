@@ -160,71 +160,81 @@ export default function Page() {
           )}
         </div>
         <div className="">
-          {playersData && playersData.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-12">
-              {playersData.map((player, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg shadow-lg p-2 w-full  pb-1"
-                >
-                  <section className="flex justify-between items-start pb-2">
-                    <p className="pb-1 text-xs text-gray-500 w-2/5">
-                      {getDate(player.createdAt)}
-                    </p>
-                    <p className="text-sm font-light text-black text-right border rounded-lg p-1 bg-green-200">
-                      {player.clubName}
-                    </p>
-                  </section>
+          {playersData ? (
+            <div className="">
+              {playersData.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-5 gap-12">
+                  {playersData.map((player, index) => (
+                    <div
+                      key={index}
+                      className="bg-white rounded-lg shadow-lg p-2 w-full  pb-1"
+                    >
+                      <section className="flex justify-between items-start pb-2">
+                        <p className="pb-1 text-xs text-gray-500 w-2/5">
+                          {getDate(player.createdAt)}
+                        </p>
+                        <p className="text-sm font-light text-black text-right border rounded-lg p-1 bg-green-200">
+                          {player.clubName}
+                        </p>
+                      </section>
 
-                  <div className="flex flex-col justify-between h-40">
-                    <section className="px-4">
-                      <h2 className="text-lg font-medium pb-2">
-                        {player.name}
-                      </h2>
+                      <div className="flex flex-col justify-between h-40">
+                        <section className="px-4">
+                          <h2 className="text-lg font-medium pb-2">
+                            {player.name}
+                          </h2>
 
-                      <p className="text-gray-600 text-sm">{player.position}</p>
-                    </section>
+                          <p className="text-gray-600 text-sm">
+                            {player.position}
+                          </p>
+                        </section>
 
-                    <section className="flex items-center justify-between">
-                      <p className="">
-                        <div className="">
-                          <p
-                            className="text-red-500 rounded-xl cursor-pointer"
-                            onClick={() => {
-                              openDeleteModal();
-                              setCurrentPlayerId(player._id);
-                            }}
-                          >
-                            Delete
+                        <section className="flex items-center justify-between">
+                          <p className="">
+                            <div className="">
+                              <p
+                                className="text-red-500 rounded-xl cursor-pointer"
+                                onClick={() => {
+                                  openDeleteModal();
+                                  setCurrentPlayerId(player._id);
+                                }}
+                              >
+                                Delete
+                              </p>
+
+                              {currentPlayerId === player._id && (
+                                <ConfirmDelete
+                                  isOpen={isDeleteModalOpen}
+                                  onClose={closeDeleteModal}
+                                  onConfirm={handleConfirm}
+                                  playerId={currentPlayerId}
+                                  playerName={player.name}
+                                />
+                              )}
+                            </div>
                           </p>
 
-                          {currentPlayerId === player._id && (
-                            <ConfirmDelete
-                              isOpen={isDeleteModalOpen}
-                              onClose={closeDeleteModal}
-                              onConfirm={handleConfirm}
-                              playerId={currentPlayerId}
-                              playerName={player.name}
-                            />
-                          )}
-                        </div>
-                      </p>
-
-                      <p
-                        className="text-black cursor-pointer"
-                        onClick={() => openModal(player)}
-                      >
-                        View Player
-                      </p>
-                    </section>
-                  </div>
+                          <p
+                            className="text-black cursor-pointer"
+                            onClick={() => openModal(player)}
+                          >
+                            View Player
+                          </p>
+                        </section>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <div className="text-2xl">
+                  Currently, The player list is empty. You can click {"'"}Add
+                  New Player{"'"} button to add a new Player.
+                </div>
+              )}
             </div>
           ) : (
-            <div className="text-2xl">
-              Currently, The player list is empty. Please click the {"'"}Add New
-              Player{"'"} button to add a new Player.
+            <div className="py-12 sm:py-20 w-full flex items-center justify-center">
+              <h4 className="text-xl sm:text-3xl text-center">Loading...</h4>
             </div>
           )}
 
