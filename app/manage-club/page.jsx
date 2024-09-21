@@ -12,6 +12,8 @@ export default function Page() {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [playersData, setPlayersData] = useState(null);
 
+  const [addPlayerError, setAddPlayerError] = useState(null);
+
   //for delete post
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentPlayerId, setCurrentPlayerId] = useState(null);
@@ -91,7 +93,6 @@ export default function Page() {
     const data = {
       ...playerData,
     };
-
     try {
       const response = await fetch(`${Domain}/api/players`, {
         method: "POST",
@@ -104,13 +105,15 @@ export default function Page() {
 
       const rdata = await response.json();
 
+      setAddPlayerError({ message: rdata.message, status: response.status });
+
       if (!response.ok) {
         console.error("New player addition error:", rdata.message);
       } else {
         window.location.reload();
       }
     } catch (error) {
-      console.error("New post addition error:", error);
+      console.error("New player addition error:", error);
     }
   };
 
@@ -147,7 +150,10 @@ export default function Page() {
       <div className="px-12">
         <div className="py-6">
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              setIsModalOpen(true);
+              setAddPlayerError(null);
+            }}
             className="bg-blue-500 text-white px-6 py-2 rounded-md pb-4 hover:bg-blue-600"
           >
             Add New Player
@@ -156,6 +162,7 @@ export default function Page() {
             <NewPlayerModal
               onClose={() => setIsModalOpen(false)}
               onSubmit={handleSubmit}
+              error={addPlayerError}
             />
           )}
         </div>
@@ -261,6 +268,17 @@ export default function Page() {
                   Height:{" "}
                   <span className="font-bold">{selectedPlayer.height}</span>
                 </p>
+
+                <p className="text-sm text-gray-600">
+                  Email:{" "}
+                  <span className="font-bold">{selectedPlayer.email}</span>
+                </p>
+
+                <p className="text-sm text-gray-600">
+                  Contact Number:{" "}
+                  <span className="font-bold">{selectedPlayer.contact}</span>
+                </p>
+
                 <p className="text-sm text-gray-600 pt-4">
                   Club:{" "}
                   <span className="font-bold bg-green-300 p-1 rounded-lg">

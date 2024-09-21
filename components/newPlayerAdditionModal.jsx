@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-export default function NewPlayerModal({ onClose, onSubmit }) {
+export default function NewPlayerModal({ onClose, onSubmit, error }) {
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ export default function NewPlayerModal({ onClose, onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ name, position, email, contact, age, height, foot });
-    onClose();
+    // onClose();
   };
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50">
@@ -82,13 +82,19 @@ export default function NewPlayerModal({ onClose, onSubmit }) {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-2 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md bg-gray-200"
+                className={`mt-2 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md bg-gray-200 ${
+                  error?.status === 409 && "bg-red-400"
+                }`}
                 required // Added required attribute
               />
             </section>
 
             <section>
-              <label className="block text-lg font-medium text-gray-700">
+              <label
+                className={`block text-lg font-medium text-gray-700 ${
+                  error && error.status == 422 && "text-red-400"
+                }`}
+              >
                 Contact
               </label>
               <input
@@ -96,7 +102,9 @@ export default function NewPlayerModal({ onClose, onSubmit }) {
                 id="contact"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
-                className="mt-2 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md bg-gray-200"
+                className={`mt-2 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md bg-gray-200 ${
+                  error?.status === 422 && "bg-red-400"
+                }`}
                 required
               />
             </section>
@@ -113,7 +121,7 @@ export default function NewPlayerModal({ onClose, onSubmit }) {
                 value={height}
                 onChange={(e) => setHeight(e.target.value)}
                 className="mt-2 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md bg-gray-200"
-                required // Added required attribute
+                required
               />
             </section>
 
@@ -131,7 +139,9 @@ export default function NewPlayerModal({ onClose, onSubmit }) {
               />
             </section>
           </div>
-
+          {error && (
+            <p className="text text-red-600 text-sm">{error.message} </p>
+          )}
           <div className="flex justify-end">
             <button
               type="submit"

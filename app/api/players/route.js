@@ -12,6 +12,35 @@ export async function POST(request) {
   try {
     const clubID = await getDataFromToken(request).id;
     const clubName = await getDataFromToken(request).name;
+
+    // hello, here starts
+    const existingPlayer = await players.findOne({
+      $or: [{ email }, { contact }],
+    });
+
+    if (existingPlayer) {
+      if (existingPlayer.email === email) {
+        return NextResponse.json(
+          {
+            message: "Email already exists",
+            success: false,
+          },
+          { status: 409 }
+        );
+      }
+
+      if (existingPlayer.contact === contact) {
+        return NextResponse.json(
+          {
+            message: "Contact already exists",
+            success: false,
+          },
+          { status: 422 }
+        );
+      }
+    }
+
+    //helloo here ends
     const newPlayer = new players({
       name,
       position,
@@ -30,6 +59,7 @@ export async function POST(request) {
       success: true,
     });
   } catch (error) {
+    console.log(error);
     return NextResponse.json("Internal Server Error", {
       status: 500,
       success: false,
