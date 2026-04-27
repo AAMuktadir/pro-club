@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const CATEGORIES = ["Division 1", "Division 2", "Division 3"];
+
 export default function UpdateClubInfoModal({ clubData, onClose, onUpdate }) {
   const [name, setName] = useState(clubData.name);
   const [manager, setManager] = useState(clubData.manager);
@@ -12,72 +14,83 @@ export default function UpdateClubInfoModal({ clubData, onClose, onUpdate }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-8 rounded-lg w-full max-w-lg relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
-        >
-          <span className="text-lg font-semibold">X</span>
-        </button>
-        <h2 className="text-3xl font-bold mb-8 text-center">
-          Update club Information
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 px-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md relative animate-slide-up">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Name
+            <h2 className="text-lg font-bold text-slate-800">Update Club</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Edit your club information</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+            aria-label="Close modal"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
+          <div>
+            <label htmlFor="club-name" className="block text-sm font-medium text-slate-700 mb-1.5">
+              Club Name
             </label>
             <input
+              id="club-name"
               type="text"
-              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400"
+              required
             />
           </div>
+
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="club-manager" className="block text-sm font-medium text-slate-700 mb-1.5">
               Manager
             </label>
             <input
+              id="club-manager"
               type="text"
-              id="manager"
               value={manager}
               onChange={(e) => setManager(e.target.value)}
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400"
+              required
             />
           </div>
+
           <div>
-            <label
-              htmlFor="gender"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="club-category" className="block text-sm font-medium text-slate-700 mb-1.5">
               Category
             </label>
             <select
-              id="category"
+              id="club-category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400"
             >
-              <option value="Division 1">Division 1</option>
-              <option value="Division 2">Division 2</option>
-              <option value="Division 3">Division 3</option>
+              {CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
             </select>
           </div>
-          <div className="flex justify-center">
+
+          <div className="flex gap-3 pt-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-sm font-medium hover:bg-slate-50 transition-colors"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-6 py-2 rounded-md"
+              className="flex-1 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold transition-colors shadow-sm"
             >
-              Update
+              Save Changes
             </button>
           </div>
         </form>
