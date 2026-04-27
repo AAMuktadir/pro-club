@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-const CATEGORIES = ["Division 1", "Division 2", "Division 3"];
+import { CATEGORIES } from "@/utils/clubConstants";
 
 export default function UpdateClubInfoModal({ clubData, onClose, onUpdate }) {
   const [name, setName] = useState(clubData.name);

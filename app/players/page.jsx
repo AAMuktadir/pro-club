@@ -3,8 +3,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import PlayerCard from "@/components/playerCard";
 import { Domain } from "@/utils/constants";
 import Header from "@/components/header";
+import { POSITIONS } from "@/utils/clubConstants";
 
-const ALL_POSITIONS = ["All", "Goalkeeper", "Defender", "Midfielder", "Forward", "Striker", "Winger", "Other"];
+const ALL_POSITIONS = ["All", ...POSITIONS];
 
 function SkeletonCard() {
   return (

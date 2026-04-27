@@ -2,9 +2,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Domain } from "@/utils/constants";
+import { CATEGORIES } from "@/utils/clubConstants";
 import Link from "next/link";
-
-const CATEGORIES = ["Division 1", "Division 2", "Division 3"];
 
 export default function RegisterPage() {
   const router = useRouter();

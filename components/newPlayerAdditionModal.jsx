@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-const POSITIONS = ["Goalkeeper", "Defender", "Midfielder", "Forward", "Striker", "Winger", "Other"];
+import { POSITIONS } from "@/utils/clubConstants";
 const FOOT_OPTIONS = ["Right", "Left", "Both"];
 
 export default function NewPlayerModal({ onClose, onSubmit, error }) {
@@ -152,7 +151,7 @@ export default function NewPlayerModal({ onClose, onSubmit, error }) {
                 type="text"
                 value={form.height}
                 onChange={handleChange}
-                placeholder="e.g. 5&apos;10&quot;"
+                placeholder={`e.g. 5'10"`}
                 className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-400"
                 required
               />
