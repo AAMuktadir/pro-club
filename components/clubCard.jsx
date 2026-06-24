@@ -7,6 +7,9 @@ const CATEGORY_COLORS = {
   "Division 3": "bg-slate-100 text-slate-600",
 };
 
+//This page displays club cards with key details such as club name, manager, rating, and division category. It highlights the user’s own club with a special badge and provides quick actions to either manage their club or view players from other clubs.
+
+
 function StarRating({ rating }) {
   return (
     <div className="flex items-center gap-0.5" aria-label={`Rating: ${rating} out of 5`}>
